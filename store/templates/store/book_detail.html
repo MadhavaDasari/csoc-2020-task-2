@@ -24,7 +24,7 @@
  {% if user.is_authenticated %}
  
    {% csrf_token %}
-   <label>Please Rate This Book :</label>
+   <b>Please Rate This Book : </b>
      <select name="rating" id="value">
         <option value="{{user_rating}}" hidden selected>{{user_rating}}</option>
      	<option value="0">0</option>
@@ -39,7 +39,7 @@
      	<option value="9">9</option>
      	<option value="10">10</option>
      </select>
-     <button type="Submit" id ="rating_change">Submit</button>
+    <br><br> <button type="Submit" id ="rating_change">Submit</button><br><br>
 
  {% endif %}
 <button class="btn btn-primary" id="loan-button">Loan {{ book.title }}</button>
