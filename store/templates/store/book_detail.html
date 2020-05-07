@@ -15,14 +15,63 @@
     <dt>Description:</dt>
     <dd>{{ book.description }}</dd>
     <dt>Rating:</dt>
-    <dd>{{ book.rating }}</dd>
+    <dd id="rating">{{ book.rating }}</dd>
     <dt>MRP:</dt>
     <dd>Rs. {{ book.mrp }}</dd>
     <dt>Available Copies:</dt>
     <dd>{{ num_available }}</dd>
 </dl>
+ {% if user.is_authenticated %}
+ 
+   {% csrf_token %}
+   <label>Please Rate This Book :</label>
+     <select name="rating" id="value">
+        <option value="{{user_rating}}" hidden selected>{{user_rating}}</option>
+     	<option value="0">0</option>
+     	<option value="1">1</option>
+     	<option value="2">2</option>
+     	<option value="3">3</option>
+     	<option value="4">4</option>
+     	<option value="5">5</option>
+     	<option value="6">6</option>
+     	<option value="7">7</option>
+     	<option value="8">8</option>
+     	<option value="9">9</option>
+     	<option value="10">10</option>
+     </select>
+     <button type="Submit" id ="rating_change">Submit</button>
+
+ {% endif %}
 <button class="btn btn-primary" id="loan-button">Loan {{ book.title }}</button>
 <script>
+
+  var rating_user = {{user_rating}};
+
+$("#rating_change").click(function(){
+    $.ajax({
+            url : "{% url 'rate-book' %}",
+            method : "POST",
+            data: {
+                bid: {{ book.id }},
+                rating: $('#value').val()
+            },
+            success: function(data, status, xhr){
+
+            if(data['message']=="success"){
+             document.getElementById('rating').innerText = data['rating'];
+             alert("Successfully Updated User Rating for the book!");
+            }
+          else{
+                        alert(data['message']);
+            }
+        },
+        error: function(xhr, status, err){
+            alert("Some error occured ! Make Sure That your are logged in ");
+        }
+
+    })
+})
+
 $("#loan-button").click(function(){
     $.ajax({
 		url: "{% url 'loan-book' %}",

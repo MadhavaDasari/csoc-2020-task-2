@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Login</title>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" 
+  type="text/css" rel="stylesheet">
+</head>
+<body>
+  <form action="/login/" method="post" >
+     {% csrf_token %}
+ <div style="padding-left:6%; max-width:70%; padding-top:6%;">
+    <div style="padding-bottom:10px">
+      <span style="color:white;font-size:40px;">
+        Login
+      </span>
+    </div>
+    {% if message %}
+
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" class="form-control" name="username"  value="{{arr.u}}"id="inputUsername" required>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" name="password" value="{{arr.p}}" id="inputPassword" required>
+    </div>
+
+    {% else %}
+
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" class="form-control" name="username" id="inputUsername" required>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" name="password" id="inputPassword" required>
+    </div>
+
+    {% endif %}
+
+    <input type="submit" class="btn btn-outline-success my-2 my-sm-0" name="submit">
+</div>
+  </form>
+  <div style="position: center;margin-left: 300px">
+   <b>Don't have an Account ? Please <a href="/register">Register</a></b>
+  </div>
+  <br>
+  <br>
+   <div  class="form-group" style="position: center;margin-left: 300px; margin-bottom:100px;font-size:20px;">
+      {% if message %}
+      <h3>{{ message }}</h3>
+      {% endif %}
+      
+   </div>
+</body>
+</html>

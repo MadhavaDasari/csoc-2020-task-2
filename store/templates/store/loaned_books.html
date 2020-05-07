@@ -37,7 +37,29 @@
 <script>
 // Fill in this function by yourself. It should make a post call to the returnBookView and display an appropriate message
 function returnBook(bid){
-    ;
+    
+    $.ajax({
+             url : "{% url 'return-book' %}",
+             method : "POST",
+             data : {
+                bid : bid 
+             },
+             success : function(data,status,xhr){
+                if(data["message"]=="success"){
+                    alert("Book Returned Successfully ");
+                    window.location.replace("/books/loaned");
+                }
+                else
+                {
+                    alert("Unable to return the book ");
+                }
+             },
+             error : function(xhr,status,err){
+                alert(" Error occured while returning book ! Please Try later ");
+             }
+
+              
+    })
 }
 </script>
 {% endblock %}
